@@ -39,18 +39,18 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="max-w-[30rem] w-[100%] mx-auto">
+  <div class="max-w-[30rem] w-full mx-auto">
     <h1 class="mb-4 text-3xl font-bold text-center">Login</h1>
     <form @submit.prevent="loginSubmit" class="flex flex-col p-3 border border-green-500 rounded-xl">
       <label class="mb-4">
         <span class="mb-2 block text-xl font-bold">Email</span>
         <input v-model="loginFormData.email" type="text"
-          class="w-[100%] p-2 border border-green-400 rounded-md outline-0 input_focus">
+          class="w-full p-2 border border-green-400 rounded-md outline-0 input_focus">
       </label>
       <label class="mb-6">
         <span class="mb-2 block text-xl font-bold">Password</span>
         <input v-model="loginFormData.password" type="password"
-          class="w-[100%] p-2 border border-green-400 rounded-md outline-0 input_focus">
+          class="w-full p-2 border border-green-400 rounded-md outline-0 input_focus">
       </label>
       <button type="submit" class="h-10 text-xl bg-green-500 text-white rounded-md hover:bg-green-600">Login</button>
     </form>
