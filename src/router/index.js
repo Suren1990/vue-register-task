@@ -38,21 +38,17 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((route) => route.meta?.isLogined)) {
-    if (!localStorage.getItem("token")) {
-      next({
-        name: "login",
-        query: { redirect: to.fullPath },
-      });
-    } else {
-      next();
-    }
+  const isRouteProtected = to.matched.some(route => route.meta?.isLogined);
+  const hasToken = !!localStorage.getItem("token");
+
+  if (isRouteProtected && !hasToken) {
+    // Если маршрут защищен и нет токена, перенаправляем на страницу входа
+    next({ name: "login", query: { redirect: to.fullPath } });
+  } else if (to.meta.redirect && hasToken) {
+    // Если есть метаданные для перенаправления и пользователь аутентифицирован
+    next({ name: to.meta.redirect });
   } else {
-    if (to.meta.redirect && localStorage.getItem("token")) {
-      next({
-        name: to.meta.redirect,
-      });
-    }
+    // Во всех остальных случаях продолжаем навигацию
     next();
   }
 });
